@@ -10,7 +10,7 @@ import useUser from "../../lib/useUser";
 export default function Navbar() {
   const router = useRouter();
   const { isLoggedIn, user } = useUser();
-  console.log({ user, isLoggedIn }, "jouser");
+  // console.log({ user, isLoggedIn }, "jouser");
   const dispatch = useDispatch();
   const [navbarOpen, setNavbarOpen] = React.useState(false);
 

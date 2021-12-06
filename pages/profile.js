@@ -14,7 +14,7 @@ export default function Profile() {
 
   const { data: user } = useQuery("userProfile", async () => {
     // const { data } = await axios.get(`http://localhost:2000/user/user`);
-    const { data } = await axios.get(`https://fathomless-mountain-03627.herokuapp.com/user/user`);
+    const { data } = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_BASEURL}/user/user`);
     return data;
   });
   // console.log(user, "uuuu");

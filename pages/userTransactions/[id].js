@@ -38,7 +38,7 @@ export default function SingleTransaction() {
     async (userID) => {
       return await axios
         // .post(`http://localhost:2000/admin/verifyuser/${userID}`)
-        .post(`https://fathomless-mountain-03627.herokuapp.com/admin/verifyuser/${userID}`)
+        .post(`${process.env.NEXT_PUBLIC_SERVER_BASEURL}/admin/verifyuser/${userID}`)
         .catch((err) => {
           // console.log(err.response, 'cuaght')
           // throw err.response;
@@ -65,7 +65,7 @@ export default function SingleTransaction() {
     isSuccess,
   } = useQuery("getSingleUser", async () => {
     // const { data } = await axios.get(`http://localhost:2000/admin/user/${id}`);
-    const { data } = await axios.get(`https://fathomless-mountain-03627.herokuapp.com/admin/user/${id}`);
+    const { data } = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_BASEURL}/admin/user/${id}`);
     return data;
   });
 console.log(user,'user');

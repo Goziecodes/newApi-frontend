@@ -21,7 +21,7 @@ import { useLoading, BallTriangle } from "@agney/react-loading";
 export default function Dashboard() {
   const { data: transactions, isLoading } = useQuery("transactions", async () => {
     // const { data } = await axios.get(`http://localhost:2000/user/transactions`);
-    const { data } = await axios.get(`https://fathomless-mountain-03627.herokuapp.com/user/transactions`);
+    const { data } = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_BASEURL}/user/transactions`);
     return data;
   });
 

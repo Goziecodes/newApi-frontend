@@ -47,7 +47,7 @@ export default function Register() {
   const tokenMutation = useMutation(
     async () => {
       // return await axios.post(`http://localhost:2000/user/otp`).catch((err) => {
-      return await axios.post(`https://fathomless-mountain-03627.herokuapp.com/user/otp`).catch((err) => {
+      return await axios.post(`${process.env.NEXT_PUBLIC_SERVER_BASEURL}/user/otp`).catch((err) => {
         // console.log(err.response, 'cuaght')
         // throw err.response;
         throw new Error(err.response);
@@ -70,7 +70,7 @@ export default function Register() {
     return axios.post(
       // `${process.env.REACT_APP_BASEURL}payment/vendor/${signupDetails}/expenses`,
       // `http://localhost:2000/user/transaction`,
-      `https://fathomless-mountain-03627.herokuapp.com/user/transaction`,
+      `${process.env.NEXT_PUBLIC_SERVER_BASEURL}/user/transaction`,
       transferDetails
     );
   };

@@ -43,7 +43,7 @@ export default function AdminTransfer() {
   const tokenMutation = useMutation(
     async () => {
       // return await axios.post(`http://localhost:2000/user/otp`).catch((err) => {
-      return await axios.post(`https://fathomless-mountain-03627.herokuapp.com/user/otp`).catch((err) => {
+      return await axios.post(`${process.env.NEXT_PUBLIC_SERVER_BASEURL}/user/otp`).catch((err) => {
         // console.log(err.response, 'cuaght')
         // throw err.response;
         throw new Error(err.response);
@@ -62,11 +62,11 @@ export default function AdminTransfer() {
   );
 
   const credit = (transferDetails) => {
-    // console.log(signupDetails, 'ugbala')
+    console.log(transferDetails, 'ugbala')
     return axios.post(
       // `${process.env.REACT_APP_BASEURL}payment/vendor/${signupDetails}/expenses`,
       // `http://localhost:2000/admin/transactions/credit/${id}`,
-      `https://fathomless-mountain-03627.herokuapp.com/admin/transactions/credit/${id}`,
+      `${process.env.NEXT_PUBLIC_SERVER_BASEURL}/admin/transactions/credit/${id}`,
       transferDetails
     );
   };
@@ -75,7 +75,7 @@ export default function AdminTransfer() {
     onSuccess: (data) => {
       // console.log(data, "ikwe")
       queryClient.invalidateQueries("updateUser");
-      router.push("/dashboard");
+      // router.push("/dashboard");
     },
     onError: (error, variables, context) => {
       // console.log(`rolling back optimistic update with id ${context.id}`);
@@ -84,7 +84,6 @@ export default function AdminTransfer() {
   });
 
   const onCredit = (values) => {
-    console.log(values);
     creditMutation.mutate(values);
   };
 
@@ -96,7 +95,7 @@ export default function AdminTransfer() {
     isSuccess,
   } = useQuery("getSingleUser", async () => {
     // const { data } = await axios.get(`http://localhost:2000/admin/user/${id}`);
-    const { data } = await axios.get(`https://fathomless-mountain-03627.herokuapp.com/admin/user/${id}`);
+    const { data } = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_BASEURL}/admin/user/${id}`);
     return data;
   });
 
@@ -165,7 +164,8 @@ export default function AdminTransfer() {
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                       placeholder="0123456789"
                       // defaultValue='0123456789'
-                      defaultValue={user?.accountNumber}
+                      // defaultValue={user?.accountNumber}
+                      value={user?.accountNumber}
                       {...register("account_number", { required: true })}
                     />
                   </div>

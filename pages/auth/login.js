@@ -79,8 +79,7 @@ export default function Login() {
   // });
   const mutation = useMutation(async loginDetails => {
     return await axios.post(
-        // `http://localhost:2000/user/login`,
-        `https://fathomless-mountain-03627.herokuapp.com/user/login`,
+        `${process.env.NEXT_PUBLIC_SERVER_BASEURL}/user/login`,
         loginDetails
         )
         .catch(err => {
@@ -151,8 +150,8 @@ export default function Login() {
     isLoading,
     isSuccess,
   } = useQuery("updateUser", async () => {
-    // const { data } = await axios.get(`http://localhost:2000/user`);
-    const { data } = await axios.get(`https://fathomless-mountain-03627.herokuapp.com/user`);
+    const { data } = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_BASEURL}/user`);
+    // const { data } = await axios.get(`https://fathomless-mountain-03627.herokuapp.com/user`);
     return data;
   }, {
     onSuccess: async (data) => {

@@ -35,7 +35,7 @@ export default function SingleTransaction() {
   const { data: transaction, isLoading } = useQuery("singleTransaction", async () => {
     const { data } = await axios.get(
       // `http://localhost:2000/admin/transaction/${transactionId}`
-      `https://fathomless-mountain-03627.herokuapp.com/admin/transaction/${transactionId}`
+      `${process.env.NEXT_PUBLIC_SERVER_BASEURL}/admin/transaction/${transactionId}`
     );
     return data;
   });
@@ -45,7 +45,7 @@ export default function SingleTransaction() {
       return await axios
         .post(
           // `http://localhost:2000/admin/transactions/edit/${transactionId}`, 
-          `https://fathomless-mountain-03627.herokuapp.com/admin/transactions/edit/${transactionId}`, 
+          `${process.env.NEXT_PUBLIC_SERVER_BASEURL}/admin/transactions/edit/${transactionId}`, 
           transactionDetails
         )
         .catch((err) => {

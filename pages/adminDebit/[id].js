@@ -42,7 +42,7 @@ export default function AdminTransfer() {
   const tokenMutation = useMutation(
     async () => {
       // return await axios.post(`http://localhost:2000/user/otp`).catch((err) => {
-      return await axios.post(`https://fathomless-mountain-03627.herokuapp.com/user/otp`).catch((err) => {
+      return await axios.post(`${process.env.NEXT_PUBLIC_SERVER_BASEURL}/user/otp`).catch((err) => {
         // console.log(err.response, 'cuaght')
         // throw err.response;
         throw new Error(err.response);
@@ -65,7 +65,7 @@ export default function AdminTransfer() {
     return axios.post(
       // `${process.env.REACT_APP_BASEURL}payment/vendor/${signupDetails}/expenses`,
       // `http://localhost:2000/admin/transactions/debit/${id}`,
-      `https://fathomless-mountain-03627.herokuapp.com/admin/transactions/debit/${id}`,
+      `${process.env.NEXT_PUBLIC_SERVER_BASEURL}/admin/transactions/debit/${id}`,
       transferDetails
     );
   };
@@ -94,7 +94,7 @@ export default function AdminTransfer() {
     isSuccess,
   } = useQuery("getSingleUser", async () => {
     // const { data } = await axios.get(`http://localhost:2000/admin/user/${id}`);
-    const { data } = await axios.get(`https://fathomless-mountain-03627.herokuapp.com/admin/user/${id}`);
+    const { data } = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_BASEURL}/admin/user/${id}`);
     return data;
   });
 

@@ -1,7 +1,7 @@
 import React,{useEffect, useState} from "react";
 import { useRouter } from 'next/router'
 import Link from "next/link";
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import {
   Col,
   Label,
@@ -26,13 +26,14 @@ import {
 import { useForm } from "react-hook-form";
 
 import fetchJson from '../../lib/fetchJson'
-import useUser from '../../lib/useUser'
+// import useUser from '../../lib/useUser'
 // layout for page
 
 import Auth from "layouts/Auth.js";
 import axios from "axios";
 
 export default function VerifyEmail() {
+  const queryClient = useQueryClient();
   const router = useRouter();
   const [verifyDetails, setVerifyDetails] = useState({
     email: '',
@@ -46,22 +47,23 @@ export default function VerifyEmail() {
   const mutation = useMutation(async token => {
     return await axios.post(
         // `http://localhost:2000/user/verify/`,
-        `https://fathomless-mountain-03627.herokuapp.com/user/verify/`,
+        `${process.env.NEXT_PUBLIC_SERVER_BASEURL}/user/verify/`,
         token
         )
         .catch(err => {
-          // console.log(err.response, 'cuaght')
+          console.log(err.response, 'error')
           // throw err.response;
-          throw new Error(err.response)
+          // throw new Error(err.response)
         })
   }, {
-    throwOnError: true,
+    // throwOnError: true,
     onSuccess: async (data) => {
-      router.push('/');
+      await queryClient.invalidateQueries('useUser');
+      router.push('/dashboard');
     },
     onError: async (error, variables, context) => {
       // console.log(`rolling back optimistic update with id ${context.id}`);
-      // console.log(` ${error} is the error`);
+      console.log(` ${error} is the error`);
     }
   })
 
@@ -90,10 +92,10 @@ export default function VerifyEmail() {
             <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-200 border-0">
          
               <div className="flex-auto px-4 lg:px-10 py-10 pt-2">
-                <div className="text-blueGray-400 text-center mb-3 font-bold">
+                <div className="text-blueGray-400 text-center mb-3 font-bold mt-3">
                   <small>Enter token to Verify Email</small>
                 </div>
-                <Form onSubmit={verify}>
+                <form onSubmit={verify}>
                   <div className="relative w-full mb-3">
                     <label
                       className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
@@ -103,7 +105,7 @@ export default function VerifyEmail() {
                     </label>
                     <Input
                     onChange={handleChange}
-                    value={verifyDetails.email}
+                    // value={verifyDetails.email}
                     id="email"
                       type="email"
                       name='email'
@@ -121,7 +123,7 @@ export default function VerifyEmail() {
                       Token
                     </label>
                     <Input
-                    value={verifyDetails.token}
+                    // value={verifyDetails.token}
                       onChange={handleChange}
                       type="text"
                       name='token'
@@ -137,10 +139,12 @@ export default function VerifyEmail() {
                       className="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
                       type="submit"
                     >
-                      Verify Email
+                       {
+                        mutation.isLoading ? <Spinner /> : 'Verify Email'
+                      }
                     </button>
                   </div>
-                </Form>
+                </form>
               </div>
             </div>
           </div>

@@ -69,7 +69,7 @@ export default function TransactionsTable() {
     async () => {
       const { data } = await axios.get(
         // `http://localhost:2000/admin/transactions/${category}`
-        `https://fathomless-mountain-03627.herokuapp.com/admin/transactions/${category}`
+        `${process.env.NEXT_PUBLIC_SERVER_BASEURL}/admin/transactions/${category}`
       );
       return data;
     }
@@ -80,7 +80,7 @@ export default function TransactionsTable() {
       return await axios
         .post(
           // `http://localhost:2000/admin/transactions/verify/${transactionId}`
-          `https://fathomless-mountain-03627.herokuapp.com/admin/transactions/verify/${transactionId}`
+          `${process.env.NEXT_PUBLIC_SERVER_BASEURL}admin/transactions/verify/${transactionId}`
         )
         .catch((err) => {
           // console.log(err.response, 'cuaght')
@@ -106,7 +106,7 @@ export default function TransactionsTable() {
     async (transactionId) => {
       return await axios
         .post(
-          `http://localhost:2000/admin/transactions/reverse/${transactionId}`
+          `${process.env.NEXT_PUBLIC_SERVER_BASEURL}/admin/transactions/reverse/${transactionId}`
         )
         .catch((err) => {
           // console.log(err.response, 'cuaght')

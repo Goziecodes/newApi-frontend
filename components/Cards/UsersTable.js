@@ -63,7 +63,7 @@ export default function UsersTable() {
     refetch,
   } = useQuery(["adminGetusers", category], async () => {
     const { data } = await axios.get(
-      `https://fathomless-mountain-03627.herokuapp.com/admin/users/${category}`
+      `${process.env.NEXT_PUBLIC_SERVER_BASEURL}/admin/users/${category}`
       // `http://localhost:2000/admin/users/${category}`
     );
     return data;
@@ -84,7 +84,7 @@ export default function UsersTable() {
     async (userId) => {
       return await axios
         // .put(`http://localhost:2000/admin/users/block/${userId}`)
-        .put(`https://fathomless-mountain-03627.herokuapp.com/admin/users/block/${userId}`)
+        .put(`${process.env.NEXT_PUBLIC_SERVER_BASEURL}/admin/users/block/${userId}`)
         .catch((err) => {
           // console.log(err.response, 'cuaght')
           // throw err.response;

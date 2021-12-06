@@ -24,7 +24,7 @@ const { register, errors, handleSubmit } = useForm();
   const { data : user } = useQuery("userProfile", async () => {
     const { data } = await axios.get(
       // `http://localhost:2000/user/user`
-      `https://fathomless-mountain-03627.herokuapp.com/user/user`
+      `${process.env.NEXT_PUBLIC_SERVER_BASEURL}/user/user`
     );
     return data;
   });
@@ -32,7 +32,7 @@ const { register, errors, handleSubmit } = useForm();
   const mutation = useMutation(async formData => {
     return await axios.post(
         // `http://localhost:2000/user/dp`,
-        `https://fathomless-mountain-03627.herokuapp.com/user/dp`,
+        `${process.env.NEXT_PUBLIC_SERVER_BASEURL}/user/dp`,
         formData, {
           headers: {
             'Content-Type': 'multipart/form-data'

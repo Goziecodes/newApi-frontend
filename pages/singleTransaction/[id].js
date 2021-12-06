@@ -30,7 +30,7 @@ export default function SingleTransaction() {
   const { data: transaction, isLoading } = useQuery("transaction", async () => {
     const { data } = await axios.get(
       // `http://localhost:2000/admin/transaction/${id}`
-      `https://fathomless-mountain-03627.herokuapp.com/admin/transaction/${id}`
+      `${process.env.NEXT_PUBLIC_SERVER_BASEURL}/admin/transaction/${id}`
     );
     return data;
   });

@@ -15,7 +15,7 @@ export default function HeaderStats() {
   // const { user } = useUser({ redirectTo: 'auth/login' });
   const { data: user } = useQuery("getUserr", async () => {
     // const { data } = await axios.get(`http://localhost:2000/user/user`);
-    const { data } = await axios.get(`https://fathomless-mountain-03627.herokuapp.com/user/user`);
+    const { data } = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_BASEURL}/user/user`);
     return data;
   });
   // const currencySymbol = user.currency === 'euro' ? '&#128;' : user.currency === 'pounds' ? '&#163' : user.currency === 'dollar' ? '&#36' : '&#8358;'

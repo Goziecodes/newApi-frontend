@@ -43,17 +43,19 @@ export default function Register() {
   const signUp = (signupDetails) => {
     // console.log(signupDetails, 'ugbala')
     return axios.post(
-      // `${process.env.REACT_APP_BASEURL}payment/vendor/${signupDetails}/expenses`,
-      // `http://localhost:2000/user/signup`,
-      `https://fathomless-mountain-03627.herokuapp.com/user/signup`,
+      `${process.env.NEXT_PUBLIC_SERVER_BASEURL}/user/signup`,
       signupDetails
     );
   };
 
   const mutation = useMutation(signUp, {
     onSuccess: (data) => {
-      // console.log(data, "ikwe")
-    router.push("/auth/verifyEmail");
+      console.log(data, "ikwe")
+      const userRole = data.data.createdUser.role;
+      console.log(userRole, "userRole")
+
+      // router.push("/auth/verifyEmail")
+      router.push(userRole === 'user' ? "/auth/verifyEmail" : "/dashboard")
     },
     onError: (error, variables, context) => {
       // console.log(`rolling back optimistic update with id ${context.id}`);
