@@ -105,6 +105,30 @@ export default function UsersTable() {
     }
   );
 
+  const deleteUser = useMutation(
+    async (userId) => {
+      return await axios
+        // .put(`http://localhost:2000/admin/users/block/${userId}`)
+        .put(`${process.env.NEXT_PUBLIC_SERVER_BASEURL}/admin/users/delete/${userId}`)
+        .catch((err) => {
+          // console.log(err.response, 'cuaght')
+          // throw err.response;
+          throw new Error(err.response);
+        });
+    },
+    {
+      throwOnError: true,
+      onSuccess: async (data) => {
+        toggle2();
+        queryClient.invalidateQueries("adminGetusers");
+      },
+      onError: async (error, variables, context) => {
+        // console.log(`rolling back optimistic update with id ${context.id}`);
+        console.log(` ${error} is the error`);
+      },
+    }
+  );
+
   return (
     <>
       <div className="flex flex-wrap mt-4 justify-center">
@@ -442,7 +466,9 @@ export default function UsersTable() {
                               </Row>
                             </Form>
                             <br />{" "}
-                            <div className='text-center'>
+
+                            <div className="w-full flex justify-center ">
+                            <div className='text-center p-1'>
                             <Button color={modalContent.allowed ? "danger" : "primary"} onClick={() => mutation.mutate(modalContent._id)}>
                               { mutation.isLoading ? (
                           <Spinner className="" color="white" size="sm" />
@@ -451,6 +477,18 @@ export default function UsersTable() {
                         )}
                             </Button>{" "}
                             </div>
+                         
+                            <div className='text-center p-1'>
+                            <Button color={"danger"} onClick={() => deleteUser.mutate(modalContent._id)}>
+                              { deleteUser.isLoading ? (
+                          <Spinner className="" color="white" size="sm" />
+                        ) : (
+                                'Delete User'
+                        )}
+                            </Button>{" "}
+                            </div>
+                            </div>
+                          
                          
                           </ModalBody>
                           <ModalFooter>

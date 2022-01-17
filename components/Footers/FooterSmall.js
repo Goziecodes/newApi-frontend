@@ -14,13 +14,13 @@ export default function FooterSmall(props) {
           <hr className="mb-6 border-b-1 border-blueGray-600" />
           <div className="flex flex-wrap items-center md:justify-between justify-center">
             <div className="w-full md:w-4/12 px-4">
-              <div className="text-sm text-blueGray-500 font-semibold py-1 text-center md:text-left">
+            <div className="text-sm text-blueGray-500 font-semibold py-1 text-center md:text-left">
                 Copyright © {new Date().getFullYear()}{" "}
                 <a
-                  href="https://www.creative-tim.com?ref=nnjs-footer-small"
-                  className="text-white hover:text-blueGray-300 text-sm font-semibold py-1"
+                  href="/"
+                  className="text-blueGray-500 hover:text-blueGray-300 text-sm font-semibold py-1"
                 >
-                  Sajjal Bank
+                  Swifti Bank
                 </a>
               </div>
             </div>

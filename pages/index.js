@@ -116,21 +116,14 @@ export default function Landing() {
                   <i className="fas fa-user-friends text-xl"></i>
                 </div>
                 <h3 className="text-3xl mb-2 font-semibold leading-normal">
-                  Working with us is a pleasure
+                  Put Our Cash Where Your Money Grows
                 </h3>
-                <p className="text-lg font-light leading-relaxed mt-4 mb-4 text-blueGray-600">
-                  Don't let your uses guess by attaching tooltips and popoves to
-                  any element. Just make sure you enable them first via
-                  JavaScript.
-                </p>
+             
                 <p className="text-lg font-light leading-relaxed mt-0 mb-4 text-blueGray-600">
-                  The kit comes with three pre-built pages to help you get
-                  started faster. You can change the text and images and you're
-                  good to go. Just make sure you enable them first via
-                  JavaScript.
+                With a stable foundation and a long-lasting business plan, we are here for you when ever and where ever you are. By keeping in stride with the ever changing global trend and market, we make sure your investments are protected in a changing world.
                 </p>
-                <Link href="/">
-                  <a href="#pablo" className="font-bold text-blueGray-700 mt-8">
+                <Link href="/auth/register">
+                  <a href="/signup" className="font-bold text-blueGray-700 mt-8">
                     Create A Digital Account now!
                   </a>
                 </Link>
@@ -155,17 +148,17 @@ export default function Landing() {
                         className="text-blueGray-700 fill-current"
                       ></polygon>
                     </svg>
-                    <h4 className="text-xl font-bold text-white">
-                      Top Notch Services
+                    <h4 className="text-xl font-bold">
+                    A Long-Term Partner You Can Always Trust
                     </h4>
-                    <p className="text-md font-light mt-2 text-white">
-                      The Arctic Ocean freezes every winter and much of the
-                      sea-ice then thaws every summer, and that process will
-                      continue whatever happens.
+                    <p className="text-md font-light mt-2 ">
+                    choose from our personal savings accounts. join the ethical banking movement, 
                     </p>
                   </blockquote>
                 </div>
               </div>
+
+              
             </div>
           </div>
         </section>
@@ -197,7 +190,7 @@ export default function Landing() {
                 <img
                   alt="..."
                   className="max-w-full rounded-lg shadow-lg"
-                  src="https://images.unsplash.com/photo-1555212697-194d092e3b8f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
+                  src="https://images.pexels.com/photos/259200/pexels-photo-259200.jpeg?cs=srgb&dl=pexels-pixabay-259200.jpg&fm=jpg"
                 />
               </div>
               <div className="w-full md:w-5/12 ml-auto mr-auto px-4">
@@ -205,11 +198,9 @@ export default function Landing() {
                   <div className="text-blueGray-500 p-3 text-center inline-flex items-center justify-center w-16 h-16 mb-6 shadow-lg rounded-full bg-blueGray-200">
                     <i className="fas fa-rocket text-xl"></i>
                   </div>
-                  <h3 className="text-3xl font-semibold">A growing company</h3>
+                  <h3 className="text-3xl font-semibold">Personalized Banking</h3>
                   <p className="mt-4 text-lg leading-relaxed text-blueGray-500">
-                    The extension comes with three pre-built pages to help you
-                    get started faster. You can change the text and images and
-                    you're good to go.
+                  Wherever you are in your life, enjoy a better banking experience with our comprehensive Personal Banking solutions, designed to help you save, spend and get rewarded for your relationship with us. From savings accounts to your first home mortgage or child’s education fund, we offer a full range of services to meet your evolving financial needs. Simpler, smarter banking
                   </p>
                   <ul className="list-none mt-6">
                     <li className="py-2">
@@ -221,7 +212,7 @@ export default function Landing() {
                         </div>
                         <div>
                           <h4 className="text-blueGray-500">
-                            Carefully crafted components
+                          24 Hours Service
                           </h4>
                         </div>
                       </div>
@@ -235,7 +226,7 @@ export default function Landing() {
                         </div>
                         <div>
                           <h4 className="text-blueGray-500">
-                            Amazing page examples
+                          International Banking
                           </h4>
                         </div>
                       </div>
@@ -249,7 +240,21 @@ export default function Landing() {
                         </div>
                         <div>
                           <h4 className="text-blueGray-500">
-                            Dynamic components
+                          Innovative Solutions
+                          </h4>
+                        </div>
+                      </div>
+                    </li>
+                    <li className="py-2">
+                      <div className="flex items-center">
+                        <div>
+                          <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-blueGray-500 bg-blueGray-100 mr-3">
+                            <i className="far fa-paper-plane"></i>
+                          </span>
+                        </div>
+                        <div>
+                          <h4 className="text-blueGray-500">
+                          Access On The Go
                           </h4>
                         </div>
                       </div>

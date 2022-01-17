@@ -29,7 +29,7 @@ export default function Navbar() {
                 className="text-white text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase"
                 href="/"
               >
-                Sajjal
+                Swifti
               </a>
             </Link>
             <button

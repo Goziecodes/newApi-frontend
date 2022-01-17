@@ -87,7 +87,7 @@ function MyApp({ Component, pageProps }) {
           name="viewport"
           content="width=device-width, initial-scale=1, shrink-to-fit=no"
         />
-        <title>Notus NextJS by Creative Tim</title>
+        <title>Swifti Bank</title>
         <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
       </Head>
       
@@ -165,10 +165,6 @@ export default withRedux(makeStore)(MyApp);
 // export default class MyApp extends App {
 //   componentDidMount() {
 //     let comment = document.createComment(`
-
-// =========================================================
-// * Notus NextJS - v1.1.0 based on Tailwind Starter Kit by Creative Tim
-// =========================================================
 
 // * Product Page: https://www.creative-tim.com/product/notus-nextjs
 // * Copyright 2021 Creative Tim (https://www.creative-tim.com)
