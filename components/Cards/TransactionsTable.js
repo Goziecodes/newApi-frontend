@@ -26,6 +26,7 @@ import { useRouter } from "next/router";
 import { useQueryClient, useMutation, useQuery } from "react-query";
 import axios from "axios";
 import { useLoading, BallTriangle } from "@agney/react-loading";
+import Moment from 'react-moment';
 
 // components
 
@@ -209,10 +210,13 @@ export default function TransactionsTable() {
               <thead className="thead-light">
                 <tr>
                   <th className="px-6 w-5 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                    Acc Name / Acc NO.
+                    Acc Name / Bank
                   </th>
                   <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                     Amount
+                  </th>
+                  <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                    Date
                   </th>
                   <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                     Designation
@@ -234,6 +238,13 @@ export default function TransactionsTable() {
 
                       <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                         {transaction.total}
+                      </td>
+
+                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                      <Moment format="YYYY/MM/DD">
+                      {transaction.date}
+                      </Moment>
+                        
                       </td>
 
                       <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
