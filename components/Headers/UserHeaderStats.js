@@ -47,10 +47,10 @@ export default function HeaderStats() {
             <div className="w-auto flex justify-center lg:px-8 mb-8 ">
                 <FullCardStats 
                   statSubtitle="Account Type"
-                  statTitle="Investment Account"
-                  accountNumber={user?.accountNumber}
+                  statTitle={user?.accountType}
+                  // accountNumber={user?.accountNumber}
                   // accountNumber='please check your mail inbox and verify your email to generate Account Number'
-                  // accountNumber={user.verified ? user?.accountNumber : 'please check your mail inbox and verify your email to generate Account Number'}
+                  accountNumber={user?.verified ? user?.accountNumber : 'please check your mail inbox and verify your email to generate Account Number'}
                   statArrow="down"
                   statPercentColor="text-red-500"
                   statIconName="fas fa-chart-pie"

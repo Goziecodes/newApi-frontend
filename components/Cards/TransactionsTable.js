@@ -78,27 +78,26 @@ export default function TransactionsTable() {
 
   const mutation = useMutation(
     async (transactionId) => {
-      return await axios
-        .post(
-          // `http://localhost:2000/admin/transactions/verify/${transactionId}`
-          `${process.env.NEXT_PUBLIC_SERVER_BASEURL}admin/transactions/verify/${transactionId}`
+      return await axios.post(
+          `${process.env.NEXT_PUBLIC_SERVER_BASEURL}/admin/transactions/verify/${transactionId}`
         )
         .catch((err) => {
-          // console.log(err.response, 'cuaght')
+          console.log(err, 'cuaght')
           // throw err.response;
-          throw new Error(err.response);
+          throw new Error(err);
         });
     },
     {
-      throwOnError: true,
+      // throwOnError: true,
       onSuccess: async (data) => {
-        console.log("abeg work ooooo");
         toggle2();
         queryClient.invalidateQueries("transactions");
+        queryClient.invalidateQueries("adminGetTransactions");
+        queryClient.invalidateQueries("stats");
       },
       onError: async (error, variables, context) => {
         // console.log(`rolling back optimistic update with id ${context.id}`);
-        console.log(` ${error} is the error`);
+        console.log(error, `is the error`);
       },
     }
   );
@@ -129,7 +128,6 @@ export default function TransactionsTable() {
     }
   );
 
-  console.log(category);
   const { containerProps, indicatorEl } = useLoading({
     indicator: <BallTriangle width="50" color="white" />,
     loading: true,

@@ -20,8 +20,9 @@ import {
   Label,
   Input,
 } from "reactstrap";
-
 import { useRouter } from "next/router";
+import Moment from 'react-moment';
+
 
 
 // components
@@ -86,6 +87,9 @@ export default function UserTransactionsTable({transactions = []}) {
                     Amount
                   </th>
                   <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                    Date
+                  </th>
+                  <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                     Designation
                   </th>
               
@@ -93,7 +97,7 @@ export default function UserTransactionsTable({transactions = []}) {
               </thead>
               <tbody>
                 {/* {transactions.filter(transaction => transaction.verified).map(transaction => ( */}
-                {transactions?.filter(transaction => transaction.verified).map((transaction, index) => (
+                {transactions?.map((transaction, index) => (
                   <React.Fragment key={index}>
                     <tr onClick={() => toggle(transaction)}>
                       <th className="text-center border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
@@ -106,6 +110,12 @@ export default function UserTransactionsTable({transactions = []}) {
                       </td>
 
                       <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                      <Moment format="YYYY/MM/DD">
+                      {transaction.date}
+                      </Moment>
+                      </td>
+
+                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                         <i
                           className={`fas ${
                             transaction.transaction_type === "debit"
@@ -115,7 +125,16 @@ export default function UserTransactionsTable({transactions = []}) {
                         >
                           {" "}
                         </i>
-                        {transaction.transaction_type}
+                        {transaction.transaction_type} <br />
+                        {transaction.verified === 0 ? (<i
+                          className={`text-emerald-500 mt-4`}
+                        >
+                          {"Completed"}
+                        </i>) : (<i
+                          className={`text-red-500 mt-4`}
+                        >
+                          {"Pending"}
+                        </i>)}
                       </td>
                     
                     </tr>

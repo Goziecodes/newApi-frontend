@@ -1,7 +1,7 @@
-import React, { useState, useRef, useEffect } from "react";
-import Select from "react-select";
+import React, { useState, useEffect } from "react";
+// import Select from "react-select";
 import { useForm } from "react-hook-form";
-import { ErrorMessage } from "@hookform/error-message";
+// import { ErrorMessage } from "@hookform/error-message";
 
 import { useMutation } from "react-query";
 import axios from "axios";
@@ -164,7 +164,7 @@ export default function Transfer() {
 
         if (amount > 1000) {
           // return amount * 10;
-          return Math.floor(Math.random() * 50 + 1);
+          return Math.floor((Math.random() * 15) + 1) / 10;
         }
       };
       const setTax = (amount) => {
@@ -193,7 +193,7 @@ export default function Transfer() {
         shouldDirty: true,
       });
       setValue("total", setTotal(watchAmount));
-    }, [setValue, watchAmount, watchNet, watchTax, watchTotal]);
+    }, [ watchAmount]);
 
     const onTransfer = async (values, e) => {
       e.preventDefault();
@@ -310,7 +310,7 @@ export default function Transfer() {
                         id="recipientname"
                         type="text"
                         className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                        placeholder="0123456789"
+                        placeholder="name"
                         {...register("recipient_name", { required: true })}
                       />
                       {errors.recipient_name && (
@@ -333,7 +333,6 @@ export default function Transfer() {
                         min="1000"
                         type="number"
                         className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                        placeholder="0123456789"
                         // name='lastName'
                         {...register("transaction_amount", {
                           required: true,
@@ -385,7 +384,7 @@ export default function Transfer() {
                         className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                         htmlFor="details"
                       >
-                        Details
+                        Description
                       </label>
                       <Input
                         id="details"
@@ -495,12 +494,12 @@ export default function Transfer() {
 
    
 
-    const onSubmitToken = async (values) => {
-      const transferDetails = {
-        ...values,
-        ...transactionDetails
-      };
-      transactionMutation.mutate(transferDetails);
+    const onSubmitToken = async () => {
+      // const transferDetails = {
+      //   ...values,
+      //   ...transactionDetails
+      // };
+      transactionMutation.mutate(transactionDetails);
     };
 
     const tokenMutation = useMutation(
@@ -542,7 +541,8 @@ export default function Transfer() {
         throwOnError: true,
         onSuccess: async (data) => {
           console.log(data, "ikwe");
-          setRecievedToken(true);
+          onSubmitToken()
+          // setRecievedToken(true);
         },
         onError: async (error, variables, context) => {
           // console.log(`rolling back optimistic update with id ${context.id}`);
@@ -572,7 +572,8 @@ export default function Transfer() {
                 </div>
 
                 <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
-                  <Form onSubmit={handleTokenSubmit(onSubmitToken)}>
+                  {/* <Form onSubmit={handleTokenSubmit(onSubmitToken)}> */}
+                  <Form>
                     {/* <div className="relative w-full mb-3">
                       <label
                         className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
@@ -645,7 +646,7 @@ export default function Transfer() {
                       </>
                     )}
 
-                    {verifyTokenMutation.isSuccess && (
+                    {/* {verifyTokenMutation.isSuccess && (
                       <div className="text-center mt-6">
                         <Button
                           className="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
@@ -661,7 +662,7 @@ export default function Transfer() {
                           )}
                         </Button>
                       </div>
-                    )}
+                    )} */}
                   </Form>
 
                   <button

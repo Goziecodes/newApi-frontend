@@ -25,6 +25,8 @@ import {
 } from "reactstrap";
 import { useQueryClient, useMutation, useQuery } from "react-query";
 import { useLoading, BallTriangle } from "@agney/react-loading";
+import moment from 'moment';
+
 
 export default function SingleTransaction() {
   const queryClient = useQueryClient();
@@ -57,7 +59,9 @@ export default function SingleTransaction() {
     {
       throwOnError: true,
       onSuccess: async () => {
-        queryClient.invalidateQueries(["singleTransaction", "adminGetTransactions"]);
+        queryClient.invalidateQueries('singleTransaction');
+        queryClient.invalidateQueries('adminGetTransactions');
+        router.back();
       },
       onError: async (error, variables, context) => {
         // console.log(`rolling back optimistic update with id ${context.id}`);
@@ -100,7 +104,6 @@ export default function SingleTransaction() {
     const transferDetails = {
       ...values,
     };
-    console.log(transferDetails, "ohoo");
     mutation.mutate(transferDetails);
   };
 
@@ -123,7 +126,7 @@ export default function SingleTransaction() {
                     type="text"
                     id="recipient"
                     defaultValue={transaction?.recipient_bank}
-                    {...register("recipient_bank", { required: true })}
+                    {...register("recipient_bank", { required: false })}
                   />
                 </Col>
 
@@ -137,7 +140,7 @@ export default function SingleTransaction() {
                     type="text"
                     id="bank_address"
                     defaultValue={transaction?.bank_address}
-                    {...register("bank_address", { required: true })}
+                    {...register("bank_address", { required: false })}
                   />
                 </Col>
               </Row>
@@ -152,7 +155,7 @@ export default function SingleTransaction() {
                     type="text"
                     id="account_number"
                     defaultValue={transaction?.account_number}
-                    {...register("account_number", { required: true })}
+                    {...register("account_number", { required: false })}
                   />
                 </Col>
 
@@ -166,7 +169,7 @@ export default function SingleTransaction() {
                     id="recipient_name"
                     placeholder="with a placeholder"
                     defaultValue={transaction?.recipient_name}
-                    {...register("recipient_name", { required: true })}
+                    {...register("recipient_name", { required: false })}
                   />
                 </Col>
               </Row>
@@ -181,7 +184,7 @@ export default function SingleTransaction() {
                     type="text"
                     id="transaction_amount"
                     defaultValue={transaction?.transaction_amount}
-                    {...register("transaction_amount", { required: true, min: 1000 })}
+                    {...register("transaction_amount", { required: false, min: 1000 })}
                   />
                   {/* <ErrorMessage errors={errors} name="transaction_amount" /> */}
 
@@ -197,7 +200,7 @@ export default function SingleTransaction() {
                     id="details"
                     placeholder="with a placeholder"
                     defaultValue={transaction?.details}
-                    {...register("details", { required: true })}
+                    {...register("details", { required: false })}
                   />
                 </Col>
               </Row>
@@ -212,7 +215,7 @@ export default function SingleTransaction() {
                     type="text"
                     id="routing"
                     defaultValue={transaction?.routing}
-                    {...register("routing", { required: true })}
+                    {...register("routing", { required: false })}
                   />
                 </Col>
 
@@ -225,14 +228,44 @@ export default function SingleTransaction() {
                     type="text"
                     id="swift"
                     defaultValue={transaction?.swift}
-                    {...register("swift", { required: true })}
+                    {...register("swift", { required: false })}
                   />
                 </Col>
               </Row>
+              <Row>
+              <Col md={6}>
+                  <Label for="original" className="">
+                    current date
+                  </Label>
+                  <input
+                    className="w-full"
+                    type="text"
+                    id="original"
+                    defaultValue={moment(transaction?.date).format('MM/DD/YYYY')}
+                    disabled
+                    // {...register("swift", { required: false })}
+                  />
+                </Col>
 
-              <input type="submit" value="submit kwanu" />
+                <Col md={6}>
+                  <Label for="date" className="">
+                    Edit Date
+                  </Label>
+                  <input
+                    className="w-full"
+                    type="date"
+                    id="date"
+                    defaultValue={transaction?.date}
+                    {...register("date", { required: false })}
+                  />
+                </Col>
 
-              <div className="d-flex justify-evenly">
+            
+              </Row>
+
+              {/* <input type="submit" value="submit kwanu" /> */}
+
+              <div className="d-flex justify-evenly mt-2">
                 <Button type="submit" color="primary">
                   {
                     mutation.isLoading ? <Spinner /> : 'Edit Transaction'

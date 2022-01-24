@@ -200,7 +200,7 @@ export default function UsersTable() {
                     </tr>
                   </thead>
                   <tbody>
-                    {users?.map((user, index) => (
+                    {users?.filter((user) => user.role !== 'admin' ).map((user, index) => (
                       <>
                         <tr onClick={() => toggle(user)} key={index}>
                           <th className={` ${!user.allowed && 'text-red-500'} border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left`}>
