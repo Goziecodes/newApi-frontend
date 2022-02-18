@@ -55,6 +55,7 @@ export default function Dashboard() {
   });
 
   const { auth, isLoggedIn } = useUser({ redirectTo: "/auth/login" });
+  console.log({ auth, isLoggedIn }, 'hjfkbv')
   // const { user } = useUser({ redirectTo: "/auth/login" });
 
   // Server-render loading state
