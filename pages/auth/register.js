@@ -4,6 +4,9 @@ import { useForm } from "react-hook-form";
 import { useMutation } from "react-query";
 import axios from "axios";
 import { useRouter } from "next/router";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import {
   Col,
   Label,
@@ -31,17 +34,16 @@ import Auth from "layouts/Auth.js";
 
 export default function Register() {
   const router = useRouter();
-  const { register, errors, handleSubmit } = useForm();
+  const { register, errors, handleSubmit, watch } = useForm();
   const [data, setData] = useState({
     accountType: "",
     currency: "",
     gender: ""
   });
 
-
+  const emailWatch = watch("email");
 
   const signUp = (signupDetails) => {
-    // console.log(signupDetails, 'ugbala')
     return axios.post(
       `${process.env.NEXT_PUBLIC_SERVER_BASEURL}/user/signup`,
       signupDetails
@@ -50,16 +52,37 @@ export default function Register() {
 
   const mutation = useMutation(signUp, {
     onSuccess: (data) => {
-      console.log(data, "ikwe")
       const userRole = data.data.createdUser.role;
-      console.log(userRole, "userRole")
-
-      // router.push("/auth/verifyEmail")
-      router.push(userRole === 'user' ? "/auth/verifyEmail" : "/dashboard")
+        toast.success('signup successful', {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });      
+      router.push(userRole === 'user' ? `/auth/verifyEmail/${emailWatch}` : "/dashboard")
     },
-    onError: (error, variables, context) => {
-      // console.log(`rolling back optimistic update with id ${context.id}`);
-      // console.log(` ${error} is the error`);
+    onError: async (error, variables, context) => {
+      console.log(error,22)
+      console.log(error.response,11)
+
+      // Object.keys( error.response.data).forEach(errors =>{      
+      //   toast.error( error.response.data[errors] , {
+
+      Object.keys(error.response.data.errors).forEach(errors =>{      
+        toast.error(error.response.data.errors[errors], {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        })
+      })
+      
     },
   });
 
@@ -101,6 +124,7 @@ export default function Register() {
   ];
   return (
     <>
+          <ToastContainer />
       <div className="container mx-auto px-4 h-full">
         <div className="flex content-center items-center justify-center h-full">
           <div className="w-full lg:w-6/12 px-4">
@@ -173,7 +197,7 @@ export default function Register() {
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                       placeholder="Middle Name"
                       // name='email'
-                      {...register("middleName", { required: true })}
+                      {...register("middleName", { required: false })}
                     />
                   </div>
 

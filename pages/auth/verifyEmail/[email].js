@@ -2,6 +2,8 @@ import React,{useEffect, useState} from "react";
 import { useRouter } from 'next/router'
 import Link from "next/link";
 import { useMutation, useQueryClient } from "react-query";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import {
   Col,
   Label,
@@ -25,7 +27,7 @@ import {
 } from "reactstrap";
 import { useForm } from "react-hook-form";
 
-import fetchJson from '../../lib/fetchJson'
+import fetchJson from '../../../lib/fetchJson'
 // import useUser from '../../lib/useUser'
 // layout for page
 
@@ -39,53 +41,72 @@ export default function VerifyEmail() {
     email: '',
     token: ''
   })
+  const { email } = router.query;
   // console.log(router.query, 'queriees here');
 
   const [errorMsg, setErrorMsg] = useState('');
   const { register, errors, handleSubmit } = useForm();
 
-  const mutation = useMutation(async token => {
+  const mutation = useMutation(async values => {
     return await axios.post(
         // `http://localhost:2000/user/verify/`,
-        `${process.env.NEXT_PUBLIC_SERVER_BASEURL}/user/verify/`,
-        token
+        `${process.env.NEXT_PUBLIC_SERVER_BASEURL}/user/verify`,
+        values
         )
         .catch(err => {
-          console.log(err.response, 'error')
+          console.log(err.response.data, 'error')
           // throw err.response;
-          // throw new Error(err.response)
+          Object.keys(err.response.data).forEach(errors =>{  
+            if(errors !== 'name') {
+              toast.error(err.response.data[errors], {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+              })
+            }      
+          })
+          throw new Error(err)
         })
   }, {
     // throwOnError: true,
     onSuccess: async (data) => {
       await queryClient.invalidateQueries('useUser');
+      toast.success('token verification successful', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      })
       router.push('/dashboard');
     },
-    onError: async (error, variables, context) => {
-      // console.log(`rolling back optimistic update with id ${context.id}`);
-      console.log(` ${error} is the error`);
-    }
   })
 
-  const handleChange = (e) => {
-    const name = e.target.attributes.name.nodeValue;
-    setVerifyDetails((verifyDetails) => ({...verifyDetails, [name] : e.target.value}));
-  }
+  // const handleChange = (e) => {
+  //   const name = e.target.attributes.name.nodeValue;
+  //   setVerifyDetails((verifyDetails) => ({...verifyDetails, [name] : e.target.value}));
+  // }
   
-  async function verify(e) {
-    e.preventDefault();
-    await mutation.mutate(verifyDetails);
-        // console.log(verifyDetails, 'values')
+  async function verify(values) {
+    // e.preventDefault();
+    console.log(values, 'values')
+    await mutation.mutate(values);
   
   }
 
-  useEffect(() => {
-  setVerifyDetails(() => router.query)
-  }, [router.query])
+  // useEffect(() => {
+  // setVerifyDetails(() => router.query)
+  // }, [router.query])
 
   return (
     <>
- 
+  <ToastContainer />
       <div className="container mx-auto px-4 h-full">
         <div className="flex content-center items-center justify-center h-full">
           <div className="w-full lg:w-4/12 px-4">
@@ -95,7 +116,7 @@ export default function VerifyEmail() {
                 <div className="text-blueGray-400 text-center mb-3 font-bold mt-3">
                   <small>Enter token to Verify Email</small>
                 </div>
-                <form onSubmit={verify}>
+                <Form onSubmit={handleSubmit(verify)}>
                   <div className="relative w-full mb-3">
                     <label
                       className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
@@ -104,14 +125,14 @@ export default function VerifyEmail() {
                       Email
                     </label>
                     <Input
-                    onChange={handleChange}
+                    // onChange={handleChange}
                     // value={verifyDetails.email}
                     id="email"
                       type="email"
-                      name='email'
+                      disabled
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                      placeholder="Email"
-                      // {...register("email", { required: true, })}
+                      placeholder={email}
+                      {...register("email", { required: true, value: `${email}` })}
                     />
                   </div>
 
@@ -124,12 +145,12 @@ export default function VerifyEmail() {
                     </label>
                     <Input
                     // value={verifyDetails.token}
-                      onChange={handleChange}
+                      // onChange={handleChange}
                       type="text"
-                      name='token'
+                      // name='token'
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                       placeholder="Token"
-                      // {...register("token", { required: true,  })}
+                      {...register("token", { required: true,  })}
                     />
                   </div>
              
@@ -144,7 +165,7 @@ export default function VerifyEmail() {
                       }
                     </button>
                   </div>
-                </form>
+                </Form>
               </div>
             </div>
           </div>

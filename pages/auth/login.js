@@ -3,6 +3,8 @@ import Link from "next/link";
 import { useMutation, useQuery } from "react-query";
 import { useSelector, useDispatch } from 'react-redux';
 import {loginUser, updateUser} from '../../redux/slices/usersSlice';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import {
   Col,
   Label,
@@ -83,12 +85,25 @@ export default function Login() {
         loginDetails
         )
         .catch(err => {
-          // console.log(err.response, 'cuaght')
+          console.log(err.response, 'cuaght')
           // throw err.response;
-          throw new Error(err.response)
+          Object.keys(err.response.data).forEach(errors =>{  
+            if(errors !== 'name') {
+              toast.error(err.response.data[errors], {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+              })
+            }      
+          })
+          throw new Error(err)
         })
   }, {
-    throwOnError: true,
+    // throwOnError: true,
     onSuccess: async (data) => {
       // console.log(data, "ikwe");
       const userDetails = {
@@ -173,6 +188,7 @@ export default function Login() {
   // console.log(mutation.data, 'data')
   return (
     <>
+      <ToastContainer />
       <div className="container mx-auto px-4 h-full">
         <div className="flex content-center items-center justify-center h-full">
           <div className="w-full lg:w-4/12 px-4">

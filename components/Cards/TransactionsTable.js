@@ -101,6 +101,32 @@ export default function TransactionsTable() {
       },
     }
   );
+ 
+  const deleteMutation = useMutation(
+    async (transactionId) => {
+      return await axios.delete(
+          `${process.env.NEXT_PUBLIC_SERVER_BASEURL}/admin/transactions/delete/${transactionId}`
+        )
+        .catch((err) => {
+          console.log(err, 'cuaght')
+          // throw err.response;
+          throw new Error(err);
+        });
+    },
+    {
+      // throwOnError: true,
+      onSuccess: async (data) => {
+        toggle2();
+        queryClient.invalidateQueries("transactions");
+        queryClient.invalidateQueries("adminGetTransactions");
+        queryClient.invalidateQueries("stats");
+      },
+      onError: async (error, variables, context) => {
+        // console.log(`rolling back optimistic update with id ${context.id}`);
+        console.log(error, `is the error`);
+      },
+    }
+  );
 
   const reverseMutation = useMutation(
     async (transactionId) => {
@@ -485,14 +511,14 @@ export default function TransactionsTable() {
                           )}
                         </Button>
                       )}
-                      {/* <Button onClick={() => mutation.mutate(modalContent._id)} color="primary">
-                        {mutation.isLoading ? (
+                      <Button onClick={() => deleteMutation.mutate(modalContent._id)} color="danger">
+                        {deleteMutation.isLoading ? (
                           <Spinner className="" color="white" size="sm" />
                         ) : (
-                          "Verify Transaction"
+                          "delete Transaction"
                         )}
-                      </Button> */}
-                      {/* onClick={toggleAll} */}
+                      </Button> 
+                      {/* onClick={toggleAll}
                       {/* {
                     modalContent.verified && <p className="lead">
                       <Button onClick={() => reverseMutation.mutate(modalContent._id)} color="danger">
