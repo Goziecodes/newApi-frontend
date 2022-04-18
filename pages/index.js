@@ -266,7 +266,7 @@ export default function Landing() {
           </div>
         </section>
 
-        <section className="pt-20 pb-48">
+        {/* <section className="pt-20 pb-48">
           <div className="container mx-auto px-4">
             <div className="flex flex-wrap justify-center text-center mb-24">
               <div className="w-full lg:w-6/12 px-4">
@@ -421,7 +421,7 @@ export default function Landing() {
               </div>
             </div>
           </div>
-        </section>
+        </section> */}
 
         <section className="pb-20 relative block bg-blueGray-800">
           <div
@@ -448,12 +448,10 @@ export default function Landing() {
             <div className="flex flex-wrap text-center justify-center">
               <div className="w-full lg:w-6/12 px-4">
                 <h2 className="text-4xl font-semibold text-white">
-                  Build something
+                  Bank Swiftly
                 </h2>
                 <p className="text-lg leading-relaxed mt-4 mb-4 text-blueGray-400">
-                  Put the potentially record low maximum sea ice extent tihs
-                  year down to low ice. According to the National Oceanic and
-                  Atmospheric Administration, Ted, Scambos.
+                Tailored to your lifestyle, designed for your personal and business needs.
                 </p>
               </div>
             </div>
@@ -465,10 +463,10 @@ export default function Landing() {
                 <h6 className="text-xl mt-5 font-semibold text-white">
                   Excelent Services
                 </h6>
-                <p className="mt-2 mb-4 text-blueGray-400">
+                {/* <p className="mt-2 mb-4 text-blueGray-400">
                   Some quick example text to build on the card title and make up
                   the bulk of the card's content.
-                </p>
+                </p> */}
               </div>
               <div className="w-full lg:w-3/12 px-4 text-center">
                 <div className="text-blueGray-800 p-3 w-12 h-12 shadow-lg rounded-full bg-white inline-flex items-center justify-center">
@@ -477,22 +475,22 @@ export default function Landing() {
                 <h5 className="text-xl mt-5 font-semibold text-white">
                   Grow your market
                 </h5>
-                <p className="mt-2 mb-4 text-blueGray-400">
+                {/* <p className="mt-2 mb-4 text-blueGray-400">
                   Some quick example text to build on the card title and make up
                   the bulk of the card's content.
-                </p>
+                </p> */}
               </div>
               <div className="w-full lg:w-3/12 px-4 text-center">
                 <div className="text-blueGray-800 p-3 w-12 h-12 shadow-lg rounded-full bg-white inline-flex items-center justify-center">
                   <i className="fas fa-lightbulb text-xl"></i>
                 </div>
                 <h5 className="text-xl mt-5 font-semibold text-white">
-                  Launch time
+                  Fast reliable services
                 </h5>
-                <p className="mt-2 mb-4 text-blueGray-400">
+                {/* <p className="mt-2 mb-4 text-blueGray-400">
                   Some quick example text to build on the card title and make up
                   the bulk of the card's content.
-                </p>
+                </p> */}
               </div>
             </div>
           </div>
@@ -504,7 +502,7 @@ export default function Landing() {
                 <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-200">
                   <div className="flex-auto p-5 lg:p-10">
                     <h4 className="text-2xl font-semibold">
-                      Want to work with us?
+                      Want to reach out to us?
                     </h4>
                     <p className="leading-relaxed mt-1 mb-4 text-blueGray-500">
                       Complete this form and we will get back to you in 24

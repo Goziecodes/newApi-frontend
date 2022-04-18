@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from "react";
-// import Select from "react-select";
 import { useForm } from "react-hook-form";
-// import { ErrorMessage } from "@hookform/error-message";
-
 import { useMutation } from "react-query";
 import axios from "axios";
 import { useRouter } from "next/router";
@@ -13,37 +10,10 @@ import Auth from "layouts/Auth.js";
 
 export default function Transfer() {
   const router = useRouter();
-  // const {
-  //   register,
-  //   formState: { errors },
-  //   handleSubmit,
-  //   watch,
-  //   setValue
-  // } = useForm();
-
   const [step, setStep] = useState(1);
   const [transactionDetails, setTransactionDetails] = useState({});
 
-  // const tokenMutation = useMutation(
-  //   async () => {
-  //     // return await axios.post(`http://localhost:2000/user/otp`).catch((err) => {
-  //     return await axios.post(`${process.env.NEXT_PUBLIC_SERVER_BASEURL}/user/otp`).catch((err) => {
-  //       // console.log(err.response, 'cuaght')
-  //       // throw err.response;
-  //       throw new Error(err.response);
-  //     });
-  //   },
-  //   {
-  //     throwOnError: true,
-  //     onSuccess: async (data) => {
-  //       console.log(data, "ikwe");
-  //     },
-  //     onError: async (error, variables, context) => {
-  //       // console.log(`rolling back optimistic update with id ${context.id}`);
-  //       // console.log(` ${error} is the error`);
-  //     },
-  //   }
-  // );
+
 
   const transfer = (transferDetails) => {
     // console.log(signupDetails, 'ugbala')
@@ -65,79 +35,6 @@ export default function Transfer() {
       console.log(` ${error} is the error`);
     },
   });
-
-  // const onTransfer = async (values, e) => {
-  //   e.preventDefault();
-
-  //   const transferDetails = {
-  //     ...values,
-  //     // ...data,
-  //   };
-
-  //   // step1Loader.current = true;
-  //   const wait = (timeToDelay) => new Promise((resolve) => setTimeout(() => {
-  //     step1Loader.current = false;
-  //     console.log(values, 'opopopopopo')
-  //     // console.log(e, 'opopopopopo')
-  //   }, timeToDelay));
-  //   await wait(2000); // wait 1s
-
-  //   // setTransactionDetails(transferDetails);
-
-  //   // setStep(2);
-  //   // console.log(values, 'opopopopopo')
-  //       step1Loader.current = false;
-
-  //   console.log(e, 'opopopopopo')
-  //   // transactionMutation.mutate(transferDetails);
-  // };
-
-  // const watchAmount = watch("transaction_amount");
-  // const watchNet = watch("net");
-  // const watchTax = watch("tax");
-  // const watchTotal = watch("total");
-
-  // useEffect(() => {
-  //   const setNet = (amount) => {
-  //     if (amount <= 1000){
-  //       return 0;
-  //     }
-
-  //     if(amount > 1000 ){
-  //       // return amount * 10;
-  //       return 50
-  //     }
-  //   }
-  //   const setTax = (amount) => {
-  //     if (amount <= 1000){
-  //       return 0;
-  //     }
-
-  //     if(amount > 1000 ){
-  //       // return amount * 10;
-  //       return 60;
-  //     }
-  //   }
-  //   const setTotal = (amount) => {
-  //     if (amount <= 1000){
-  //       return watchAmount;
-  //     }
-
-  //     if(amount > 1000 ){
-  //       const percentage = watchNet + watchTax;
-  //       // return Number(watchAmount) + Number(percentage);
-  //       return watchAmount + percentage;
-  //     }
-  //   }
-
-  //   setValue("net", setNet(watchAmount), {
-  //     shouldDirty: true
-  //   })
-  //   setValue("tax", setTax(watchAmount), {
-  //     shouldDirty: true
-  //   })
-  //   setValue("total", setTotal(watchAmount))
-  // }, [setValue, watchAmount, watchNet, watchTax, watchTotal])
 
   const TransferForm = () => {
     const {

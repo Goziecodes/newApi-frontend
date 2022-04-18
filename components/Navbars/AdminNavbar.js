@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 // import UserDropdown from "components/Dropdowns/UserDropdown.js";
 import Link from "next/link";
 import useUser from "../../lib/useUser";
+import Select from "react-select";
 
 
 export default function Navbar() {
@@ -17,6 +18,14 @@ export default function Navbar() {
   const redirect = (location) => {
     router.push(location);
   };
+
+  const options = [
+    { value: 'chocolate', label: 'Chocolate' },
+    { value: 'strawberry', label: 'Strawberry' },
+    { value: 'vanilla', label: 'Vanilla' }
+  ]
+
+  
   return (
     <>
      {/* <nav className="top-0 absolute z-50 w-full flex flex-wrap items-center justify-between px-2 py-3 navbar-expand-lg bg-blueGray-400"> */}
